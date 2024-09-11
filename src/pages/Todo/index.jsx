@@ -6,6 +6,7 @@ import { useState } from "react";
 
 export default function Todo() {
   const [showNewList, setShowNewList] = useState(false);
+  const [list, setList] = useState([{}]);
   return (
     <div className={style.container}>
       <div className={style.wrapper}>
@@ -13,7 +14,7 @@ export default function Todo() {
           <h1>List</h1>
 
           <button onClick={() => setShowNewList(true)}>
-            <Add size="20" color="#ffffff" />
+            <Add size='20' color='#ffffff' />
             New List
           </button>
         </div>
@@ -23,7 +24,7 @@ export default function Todo() {
             <p className={style.listHeaderTitleText}>All list</p>
 
             <div>
-              <Filter className={style.filter} size="20" color="#121212" />
+              <Filter className={style.filter} size='20' color='#121212' />
             </div>
           </div>
 
