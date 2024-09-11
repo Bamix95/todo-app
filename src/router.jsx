@@ -1,10 +1,10 @@
 import { createBrowserRouter } from "react-router-dom";
-import Todo from "./pages/Todo/todo";
+import Todo from "./pages/Todo";
 
 const routes = createBrowserRouter([
   {
     path: "/",
-    element: <Todo></Todo>,
+    element: <Todo />,
   },
 ]);
 

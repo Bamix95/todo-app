@@ -1,0 +1,35 @@
+.container {
+  width: 100%;
+  padding-block: 12px;
+}
+
+.listItemContainer {
+  list-style-type: none;
+  margin-block: 24px;
+}
+
+.addButtonContainer > button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 0.5rem;
+  padding: 0.5rem;
+  min-width: 100%;
+  color: #121212;
+  border-radius: 0.25rem;
+  outline: transparent;
+  border: transparent;
+  cursor: pointer;
+  background: #f6f5f6;
+  position: relative;
+  overflow: hidden;
+}
+
+.addButtonContainer > button::before {
+  position: absolute;
+  content: "";
+  display: inline-block;
+  border: 9px dashed #a2a2a2;
+  width: calc(100% - 4px);
+  height: calc(100% - 4px);
+}

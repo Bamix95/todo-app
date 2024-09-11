@@ -1,0 +1,38 @@
+.listItem {
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: 500ms;
+}
+
+.listItem:hover {
+  background-color: #f1f1f1a1;
+  border-radius: 4px;
+}
+
+.listItem:not(:last-child) {
+  border-bottom: 1px solid #eee;
+}
+
+.listInfoContainer {
+  display: flex;
+  column-gap: 16px;
+  align-items: center;
+}
+
+.listInfo {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+}
+
+.listName {
+  font-size: 18px;
+  color: #121212;
+}
+.listDate {
+  font-size: 12px;
+  color: #5f5b5b;
+}
