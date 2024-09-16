@@ -7,7 +7,6 @@ export default function ListItemTile({
   task,
   handleTaskChange,
 }) {
-  console.log(task);
   // const [inputValue, setInputValue] = useState(task?.name);
   return (
     <li className={style.container}>
@@ -20,6 +19,7 @@ export default function ListItemTile({
         )}
 
         <input
+          id={task.id}
           type='text'
           placeholder='Enter new item'
           autoFocus

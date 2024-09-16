@@ -9,7 +9,7 @@ export default function NewList({ handleCloseNewList }) {
     date_created: null,
     task: [
       {
-        id: new Date(),
+        id: crypto.randomUUID(),
         name: "",
         is_completed: false,
       },
@@ -34,6 +34,45 @@ export default function NewList({ handleCloseNewList }) {
     });
   };
 
+  const addNewTask = () => {
+    console.log("true");
+    const newTask = listDetails.task;
+
+    if (newTask[newTask.length - 1].name === "") return;
+
+    newTask.push({
+      id: crypto.randomUUID(),
+      name: "",
+      is_completed: false,
+    });
+
+    const updated = {
+      ...listDetails,
+      task: [...newTask],
+    };
+    setListDetails(updated);
+  };
+
+  const removeTask = (idToRemove) => {
+    const newTask = listDetails.task.filter(({ id }) => id !== idToRemove);
+    const taskToRemove = listDetails.task.filter(({ id }) => id === idToRemove);
+
+    if (listDetails.task.length == taskToRemove.length) return;
+
+    if (taskToRemove[0].name.length) return;
+    const updated = {
+      ...listDetails,
+      task: [...newTask],
+    };
+    setListDetails(updated);
+  };
+
+  const taskActions = {
+    remove: (id) => removeTask(id),
+    add: () => addNewTask(),
+    changeTaskItemName: (id, newName) => handleTaskChange(id, newName),
+  };
+
   return (
     <div className={style.modalWrapper}>
       <div className={style.modalOverlay} onClick={handleCloseNewList}></div>
@@ -49,12 +88,7 @@ export default function NewList({ handleCloseNewList }) {
             value={listDetails.title}
             onChange={(event) => handleTitleChange(event.target.value)}
           />
-          <button
-            className={style.createButton}
-            onClick={() => console.log(listDetails)}
-          >
-            Create
-          </button>
+          <button className={style.createButton}>Create</button>
         </div>
         <div>
           <div className={style.listType}>
@@ -81,8 +115,11 @@ export default function NewList({ handleCloseNewList }) {
         </div>
 
         <ListTask
+          action={taskActions}
+          addTask={addNewTask}
+          removeTask={removeTask}
+          changeTaskItemName={handleTaskChange}
           taskArray={listDetails.task}
-          handleTaskChange={handleTaskChange}
         />
       </div>
     </div>

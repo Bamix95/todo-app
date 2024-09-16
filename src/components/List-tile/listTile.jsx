@@ -6,7 +6,7 @@ export default function ListTile() {
     <li className={style.listItem}>
       <div className={style.listInfoContainer}>
         <span>
-          <TickCircle size="20" color="#37d67a" />
+          <TickCircle size='20' color='#37d67a' />
         </span>
         <div className={style.listInfo}>
           <span className={style.listName}>
@@ -18,7 +18,7 @@ export default function ListTile() {
       </div>
 
       <div className={style.icon}>
-        <More size="20" color="#121212" />
+        <More size='20' color='#121212' />
       </div>
     </li>
   );
