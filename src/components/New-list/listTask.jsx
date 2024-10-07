@@ -1,14 +1,9 @@
 import { Additem } from "iconsax-react";
 import ListItemTile from "../List-item-tile/listItemTile";
 import style from "./style/listTask.module.css";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
-export default function ListTask({
-  taskArray,
-  handleTaskChange,
-  addTask,
-  action,
-}) {
+export default function ListTask({ taskArray, action }) {
   useEffect(() => {
     const handleKeydown = (e) => {
       if (e.key.toLowerCase() == "enter") {
@@ -25,6 +20,7 @@ export default function ListTask({
       document.removeEventListener("keydown", handleKeydown, false);
     };
   });
+
   return (
     <div className={style.container}>
       <ul className={style.listItemContainer}>
@@ -33,7 +29,7 @@ export default function ListTask({
             key={task.id}
             task={task}
             handleTaskChange={action.changeTaskItemName}
-            showCheck={false}
+            removeTask={action.remove}
           />
         ))}
       </ul>

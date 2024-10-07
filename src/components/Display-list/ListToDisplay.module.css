@@ -1,0 +1,56 @@
+.display_wrapper {
+  background-color: white;
+  min-width: 50%;
+  min-height: 30%;
+  position: relative;
+  border-radius: 8px;
+  padding: 16px;
+  animation: fadeIn 400ms;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+.modal_wrapper {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100svh;
+  width: 100svw;
+  z-index: 200;
+}
+.modal_overlay {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+.modal_content {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  gap: 16px;
+}
+.modal_content ul {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 16px;
+  width: 100%;
+}
+
+.title {
+  font-size: 48px;
+  font-weight: 500;
+}
+.things_todo {
+  font-weight: 800;
+}

@@ -2,11 +2,20 @@ import { Add, Filter } from "iconsax-react";
 import style from "./todo.module.css";
 import ListTile from "../../components/List-tile/listTile";
 import NewList from "../../components/New-list";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import ListToDisplay from "../../components/Display-list/ListToDisplay";
 
 export default function Todo() {
   const [showNewList, setShowNewList] = useState(false);
-  const [list, setList] = useState([{}]);
+  const [showListToDisplay, setShowListToDisplay] = useState(false);
+  const [listDb, setListDb] = useState([]);
+  const [listToDisplay, setListToDisplay] = useState({});
+
+  const handleListDisplay = (id) => {
+    setShowListToDisplay(true);
+    setListToDisplay(listDb.find((list) => list.id == id));
+  };
+
   return (
     <div className={style.container}>
       <div className={style.wrapper}>
@@ -29,15 +38,33 @@ export default function Todo() {
           </div>
 
           <ul className={style.listContainer}>
-            <ListTile />
-            <ListTile />
+            {listDb.length > 0
+              ? listDb?.map((item) => (
+                  <ListTile
+                    key={item?.id}
+                    list={item}
+                    handleListDisplay={() => handleListDisplay(item.id)}
+                  />
+                ))
+              : "Nothing created yet"}
           </ul>
         </div>
       </div>
+      {/* Modal: Display Todo */}
+      {showListToDisplay && (
+        <ListToDisplay
+          list={listToDisplay}
+          listDbMutator={setListDb}
+          handleCloseDisplay={() => setShowListToDisplay(false)}
+        />
+      )}
 
       {/* Modal: New list */}
       {showNewList && (
-        <NewList handleCloseNewList={() => setShowNewList(false)} />
+        <NewList
+          handleCloseNewList={() => setShowNewList(false)}
+          handleCreateNewList={setListDb}
+        />
       )}
     </div>
   );

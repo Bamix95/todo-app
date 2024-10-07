@@ -17,13 +17,14 @@
 
 .newListContainer {
   position: relative;
-  min-height: 70%;
+  height: 70%;
   min-width: 50%;
   background-color: white;
   padding: 1rem;
   border-radius: 8px;
   animation-name: fadeIn;
   animation-duration: 400ms;
+  overflow-y: auto;
 }
 
 @keyframes fadeIn {

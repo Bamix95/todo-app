@@ -31,7 +31,16 @@
 .listName {
   font-size: 18px;
   color: #121212;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
+
+.listName > span {
+  font-size: 14px;
+  color: #5f5b5b;
+}
+
 .listDate {
   font-size: 12px;
   color: #5f5b5b;

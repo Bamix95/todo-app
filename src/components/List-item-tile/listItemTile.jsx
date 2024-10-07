@@ -3,9 +3,10 @@ import style from "./listItemTile.module.css";
 import { useState } from "react";
 
 export default function ListItemTile({
-  showCheck = true,
+  showCheck = false,
   task,
   handleTaskChange,
+  removeTask,
 }) {
   // const [inputValue, setInputValue] = useState(task?.name);
   return (
@@ -13,7 +14,11 @@ export default function ListItemTile({
       <div className={style.itemText}>
         {showCheck && (
           <div className={style.customCheckboxContainer}>
-            <input type='checkbox' id='car' checked={task.is_completed} />
+            <input
+              type='checkbox'
+              id={task?.id + task?.name}
+              checked={task.is_completed}
+            />
             <div className={style.customCheckbox}></div>
           </div>
         )}
@@ -30,7 +35,7 @@ export default function ListItemTile({
 
       <div className={style.itemButtonContainer}>
         {task?.name && (
-          <button>
+          <button onClick={() => removeTask(task.id, "mouseClick")}>
             <Trash size={20} />
           </button>
         )}

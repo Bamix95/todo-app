@@ -3,10 +3,11 @@ import style from "./style/index.module.css";
 import ListTask from "./listTask";
 import { useState } from "react";
 
-export default function NewList({ handleCloseNewList }) {
+export default function NewList({ handleCloseNewList, handleCreateNewList }) {
   const [listDetails, setListDetails] = useState({
-    title: null,
+    title: "",
     date_created: null,
+    id: crypto.randomUUID(),
     task: [
       {
         id: crypto.randomUUID(),
@@ -35,7 +36,7 @@ export default function NewList({ handleCloseNewList }) {
   };
 
   const addNewTask = () => {
-    console.log("true");
+    //console.log("true");
     const newTask = listDetails.task;
 
     if (newTask[newTask.length - 1].name === "") return;
@@ -53,24 +54,42 @@ export default function NewList({ handleCloseNewList }) {
     setListDetails(updated);
   };
 
-  const removeTask = (idToRemove) => {
-    const newTask = listDetails.task.filter(({ id }) => id !== idToRemove);
-    const taskToRemove = listDetails.task.filter(({ id }) => id === idToRemove);
+  const removeTask = (idToRemove, eventAction = "backSpace") => {
+    const newTask = listDetails?.task.filter(({ id }) => id !== idToRemove);
+    const taskToRemove = listDetails?.task.filter(
+      ({ id }) => id === idToRemove
+    );
 
-    if (listDetails.task.length == taskToRemove.length) return;
+    if (eventAction == "backSpace") {
+      if (newTask?.length == 0) return;
 
-    if (taskToRemove[0].name.length) return;
-    const updated = {
-      ...listDetails,
-      task: [...newTask],
-    };
-    setListDetails(updated);
+      if (taskToRemove[0]?.name?.length) return;
+      const updated = {
+        ...listDetails,
+        task: [...newTask],
+      };
+      setListDetails(updated);
+    } else if (eventAction == "mouseClick") {
+      if (newTask.length == 0) return handleTaskChange(idToRemove, "");
+      const updated = {
+        ...listDetails,
+        task: [...newTask],
+      };
+      setListDetails(updated);
+    }
   };
 
   const taskActions = {
-    remove: (id) => removeTask(id),
+    remove: (id, eventAction) => removeTask(id, eventAction),
     add: () => addNewTask(),
     changeTaskItemName: (id, newName) => handleTaskChange(id, newName),
+  };
+
+  const createlist = () => {
+    const newList = { ...listDetails, date_created: new Date() };
+
+    handleCreateNewList((prevState) => [...prevState, newList]);
+    return handleCloseNewList();
   };
 
   return (
@@ -88,7 +107,15 @@ export default function NewList({ handleCloseNewList }) {
             value={listDetails.title}
             onChange={(event) => handleTitleChange(event.target.value)}
           />
-          <button className={style.createButton}>Create</button>
+          <button
+            disabled={listDetails.title == "" || listDetails.task[0].name == ""}
+            onClick={() => {
+              createlist();
+            }}
+            className={style.createButton}
+          >
+            Create
+          </button>
         </div>
         <div>
           <div className={style.listType}>
@@ -114,13 +141,7 @@ export default function NewList({ handleCloseNewList }) {
           </div>
         </div>
 
-        <ListTask
-          action={taskActions}
-          addTask={addNewTask}
-          removeTask={removeTask}
-          changeTaskItemName={handleTaskChange}
-          taskArray={listDetails.task}
-        />
+        <ListTask action={taskActions} taskArray={listDetails.task} />
       </div>
     </div>
   );
